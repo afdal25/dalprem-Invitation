@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from 'react';
 import { supabase } from '@/lib/supabase';
+import { CLIENT_SLUG } from '@/lib/config'; // 1. IMPORT SLUG
 import { Send, MessageCircle, PenTool, Clock, User, Heart } from 'lucide-react';
 import { motion } from 'framer-motion';
 
@@ -16,6 +17,7 @@ export default function Wishes() {
     const { data, error } = await supabase
       .from('wishes')
       .select('*')
+      .eq('slug', CLIENT_SLUG) // 2. FILTER DATA BERDASARKAN SLUG
       .order('created_at', { ascending: false })
       .limit(50);
     
@@ -26,23 +28,30 @@ export default function Wishes() {
   useEffect(() => {
     fetchWishes();
 
-    // --- 2. REALTIME LISTENER (Agar pesan orang lain masuk otomatis) ---
+    // --- 2. REALTIME LISTENER ---
     const channel = supabase
-      .channel('public:wishes')
-      .on('postgres_changes', { event: 'INSERT', schema: 'public', table: 'wishes' }, (payload) => {
-        // Cek agar tidak duplikat dengan yang baru saja kita submit manual
-        setWishes((prev) => {
-          const exists = prev.find(item => item.id === payload.new.id);
-          if (exists) return prev; 
-          return [payload.new, ...prev];
-        });
-      })
+      .channel(`public:wishes:${CLIENT_SLUG}`) // Gunakan nama channel unik
+      .on('postgres_changes', 
+        { 
+          event: 'INSERT', 
+          schema: 'public', 
+          table: 'wishes',
+          filter: `slug=eq.${CLIENT_SLUG}` // 3. FILTER REALTIME BERDASARKAN SLUG
+        }, 
+        (payload) => {
+          setWishes((prev) => {
+            const exists = prev.find(item => item.id === payload.new.id);
+            if (exists) return prev; 
+            return [payload.new, ...prev];
+          });
+        }
+      )
       .subscribe();
 
     return () => supabase.removeChannel(channel);
   }, []);
 
-  // --- 3. SUBMIT DATA (FIX: Langsung Update UI) ---
+  // --- 3. SUBMIT DATA ---
   const handleSubmit = async (e) => {
     e.preventDefault();
     if (!form.name || !form.message) return;
@@ -50,11 +59,11 @@ export default function Wishes() {
     setIsSubmitting(true);
 
     try {
-      // Insert dan minta data balikan (.select().single())
       const { data, error } = await supabase
         .from('wishes')
         .insert([
           { 
+              slug: CLIENT_SLUG, // 4. MASUKKAN SLUG SAAT INSERT
               name: form.name, 
               message: form.message 
           }
@@ -65,10 +74,7 @@ export default function Wishes() {
       if (error) throw error;
 
       if (data) {
-        // UPDATE UI LANGSUNG (Tanpa Refresh)
         setWishes((prev) => [data, ...prev]);
-        
-        // Reset Form
         setForm({ name: '', message: '' });
       }
 
@@ -101,6 +107,7 @@ export default function Wishes() {
 
   const viewportSettings = { once: false, amount: 0.2 };
 
+  // --- RETURN JSX (TIDAK ADA PERUBAHAN TAMPILAN) ---
   return (
     <section className="py-24 md:py-32 bg-[#FDFBF7] relative overflow-hidden">
       
@@ -135,7 +142,7 @@ export default function Wishes() {
 
         <div className="grid md:grid-cols-12 gap-10 items-start">
           
-          {/* KOLOM KIRI: FORMULIR (Sticky) */}
+          {/* KOLOM KIRI: FORMULIR */}
           <motion.div 
             className="md:col-span-5 sticky top-24"
             initial="hidden"

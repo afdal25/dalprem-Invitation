@@ -4,6 +4,7 @@ import { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Send, CheckCircle, Loader2, Users, User, X } from 'lucide-react'; // MessageSquare dihapus
 import { supabase } from '@/lib/supabase'; 
+import { CLIENT_SLUG } from '@/lib/config';
 
 export default function RSVP() {
   
@@ -68,6 +69,7 @@ export default function RSVP() {
         .from('rsvp')
         .insert([
           {
+            slug: CLIENT_SLUG,
             name: formData.name,
             status: formData.status,
             total_pax: formData.status === 'Hadir' ? parseInt(formData.pax) : 0,
