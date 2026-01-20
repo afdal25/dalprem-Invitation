@@ -14,14 +14,14 @@ module.exports = {
   ],
   theme: {
     extend: {
-      // Sage Green Minimalist
+      // Royal Emerald Series
       colors: {
-  primary: '#577c68',   // Hijau Sage Lembut
-  dark: '#2f4b3a',      // Hijau Hutan Pudar
-  accent: '#a89f91',    // Taupe/Cokelat Abu (Emas Matte)
-  light: '#f0fdf4',     // Putih Mint
-  paper: '#ffffff',     // Putih Polos
-  text: '#4b5563',      // Abu-abu Netral
+  primary: '#1B4D3E',   // Hijau Zamrud (Cover/Button)
+  dark: '#0f2e24',      // Hijau Gelap (Footer)
+  accent: '#D4AF37',    // Emas Mewah (Judul)
+  light: '#F3E5AB',     // Krem Emas (Teks di background gelap)
+  paper: '#FDFBF7',     // Putih Gading (Background Halaman)
+  text: '#334155',      // Abu Gelap (Teks Bacaan)
 },
       fontFamily: {
         heading: ['var(--font-cormorant)', 'serif'], 
