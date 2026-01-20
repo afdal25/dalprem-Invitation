@@ -14,15 +14,15 @@ module.exports = {
   ],
   theme: {
     extend: {
-      // Terracotta Bohemian
+      // Midnight Sapphire
       colors: {
-        primary: '#9A3412',   // Merah Bata/Terracotta
-        dark: '#431407',      // Cokelat Kopi
-        accent: '#B45309',    // Tembaga/Amber
-        light: '#FFEDD5',     // Krem Persik
-        paper: '#FFF7ED',     // Warm White
-        text: '#78350F',      // Cokelat Kayu
-      },
+  primary: '#1e3a8a',   // Biru Navy
+  dark: '#172554',      // Midnight Blue
+  accent: '#94a3b8',    // Silver/Platinum
+  light: '#e2e8f0',     // Putih Kebiruan
+  paper: '#f8fafc',     // Putih Bersih
+  text: '#334155',      // Slate Blue
+},
       fontFamily: {
         heading: ['var(--font-cormorant)', 'serif'], 
         body: ['var(--font-lato)', 'sans-serif'],    

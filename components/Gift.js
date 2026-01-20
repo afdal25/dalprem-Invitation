@@ -65,7 +65,6 @@ export default function Gift() {
     <section className="py-24 md:py-32 bg-primary text-paper relative overflow-hidden">
       
       {/* ORNAMEN BACKGROUND */}
-      <div className="absolute top-0 left-0 w-full h-full bg-[url('/img/noise.png')] opacity-5 pointer-events-none"></div>
       <div className="absolute bottom-0 left-1/2 -translate-x-1/2 w-[600px] h-[300px] bg-accent/10 rounded-full blur-[100px] pointer-events-none"></div>
 
       <div className="container mx-auto px-6 relative z-10 max-w-5xl">
