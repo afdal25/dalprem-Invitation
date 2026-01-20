@@ -5,7 +5,7 @@ import { supabase } from '@/lib/supabase';
 import { Save, Loader2, CheckCircle, Lock, LogIn } from 'lucide-react';
 
 // --- KONFIGURASI PIN RAHASIA ---
-// Ganti '12345' dengan PIN yang Anda inginkan (misal: tanggal lahir atau angka unik)
+// Ganti PIN ini dengan angka yang hanya Anda yang tahu!
 const SECRET_PIN = '252005'; 
 
 export default function AdminPage() {
@@ -36,6 +36,7 @@ export default function AdminPage() {
   // --- FUNGSI AUTO SLUG ---
   const handleNameChange = (e) => {
     const val = e.target.value;
+    // Otomatis ubah nama jadi slug yang aman (huruf kecil, spasi jadi strip)
     const autoSlug = val.toLowerCase()
       .replace(/ & /g, '-')
       .replace(/\s+/g, '-')
@@ -51,6 +52,7 @@ export default function AdminPage() {
     setMsg('');
 
     try {
+      // 1. Cek apakah Slug sudah ada?
       const { data: existing } = await supabase
         .from('clients')
         .select('slug')
@@ -58,11 +60,12 @@ export default function AdminPage() {
         .single();
 
       if (existing) {
-        alert('Gawat! Slug ini sudah dipakai klien lain.');
+        alert('Gawat! Slug ini sudah dipakai klien lain. Coba ganti slugnya.');
         setLoading(false);
         return;
       }
 
+      // 2. Jika aman, simpan ke database
       const { error } = await supabase
         .from('clients')
         .insert([
@@ -80,16 +83,16 @@ export default function AdminPage() {
 
     } catch (err) {
       console.error(err);
-      alert('Gagal membuat klien. Cek console.');
+      alert('Gagal membuat klien. Pastikan koneksi internet aman.');
     } finally {
       setLoading(false);
     }
   };
 
-  // --- TAMPILAN 1: BELUM LOGIN (Minta PIN) ---
+  // --- TAMPILAN 1: BELUM LOGIN (Lock Screen) ---
   if (!isAuthenticated) {
     return (
-      <div className="min-h-screen bg-slate-900 flex items-center justify-center p-6">
+      <div className="min-h-screen bg-slate-950 flex items-center justify-center p-6 font-sans">
         <div className="bg-white p-8 rounded-2xl shadow-2xl w-full max-w-sm text-center">
           <div className="w-16 h-16 bg-slate-100 rounded-full flex items-center justify-center mx-auto mb-4 text-slate-800">
             <Lock size={32} />
@@ -103,7 +106,7 @@ export default function AdminPage() {
               placeholder="Masukkan PIN..." 
               value={inputPin}
               onChange={(e) => setInputPin(e.target.value)}
-              className="w-full text-center text-2xl tracking-widest p-3 border border-slate-300 rounded-xl focus:border-slate-800 outline-none transition-all"
+              className="w-full text-center text-2xl tracking-widest p-3 border border-slate-300 rounded-xl focus:border-slate-800 outline-none transition-all placeholder:text-sm placeholder:tracking-normal"
               autoFocus
             />
             <button 
@@ -118,15 +121,15 @@ export default function AdminPage() {
     );
   }
 
-  // --- TAMPILAN 2: SUDAH LOGIN (Form Input) ---
+  // --- TAMPILAN 2: SUDAH LOGIN (Dashboard Form) ---
   return (
-    <div className="min-h-screen bg-slate-100 flex items-center justify-center p-6">
+    <div className="min-h-screen bg-slate-50 flex items-center justify-center p-6 font-sans">
       <div className="bg-white p-8 rounded-2xl shadow-xl w-full max-w-md border border-slate-200 relative">
         
         {/* Tombol Logout Kecil */}
         <button 
           onClick={() => setIsAuthenticated(false)}
-          className="absolute top-4 right-4 text-xs text-red-500 hover:underline"
+          className="absolute top-4 right-4 text-xs text-red-500 hover:text-red-700 font-medium transition-colors"
         >
           Logout
         </button>
@@ -135,7 +138,7 @@ export default function AdminPage() {
         <p className="text-slate-500 mb-6 text-sm">Tambah klien undangan baru di sini.</p>
 
         {msg && (
-          <div className="mb-4 p-3 bg-green-100 text-green-700 rounded-lg flex items-center gap-2 text-sm font-bold">
+          <div className="mb-4 p-3 bg-green-50 text-green-700 rounded-lg flex items-center gap-2 text-sm font-bold border border-green-200">
             <CheckCircle size={16}/> {msg}
           </div>
         )}
@@ -149,15 +152,15 @@ export default function AdminPage() {
               placeholder="Misal: Romeo & Juliet"
               value={form.couple_name}
               onChange={handleNameChange}
-              className="w-full p-3 rounded-lg border border-slate-300 focus:border-blue-500 outline-none transition-all"
+              className="w-full p-3 rounded-lg border border-slate-300 focus:border-blue-600 focus:ring-1 focus:ring-blue-600 outline-none transition-all"
               required
             />
           </div>
 
           <div>
             <label className="block text-xs font-bold text-slate-500 uppercase mb-1">Slug URL (Unik)</label>
-            <div className="flex items-center gap-2 bg-slate-50 p-3 rounded-lg border border-slate-300">
-              <span className="text-slate-400 text-sm">.../</span>
+            <div className="flex items-center gap-2 bg-slate-50 p-3 rounded-lg border border-slate-300 focus-within:border-blue-600 focus-within:ring-1 focus-within:ring-blue-600 transition-all">
+              <span className="text-slate-400 text-sm font-mono">.../</span>
               <input 
                 type="text" 
                 placeholder="romeo-juliet"
@@ -167,7 +170,9 @@ export default function AdminPage() {
                 required
               />
             </div>
-            <p className="text-[10px] text-slate-400 mt-1">*Slug ini yang nanti dimasukkan ke Vercel Environment Variable</p>
+            <p className="text-[10px] text-slate-400 mt-1 italic">
+                *Slug ini adalah ID unik klien. Jangan pakai spasi.
+            </p>
           </div>
 
           <div>
@@ -176,7 +181,7 @@ export default function AdminPage() {
               type="date" 
               value={form.wedding_date}
               onChange={(e) => setForm({...form, wedding_date: e.target.value})}
-              className="w-full p-3 rounded-lg border border-slate-300 focus:border-blue-500 outline-none"
+              className="w-full p-3 rounded-lg border border-slate-300 focus:border-blue-600 outline-none"
               required
             />
           </div>
@@ -184,7 +189,7 @@ export default function AdminPage() {
           <button 
             type="submit" 
             disabled={loading}
-            className="w-full bg-slate-900 text-white py-4 rounded-xl font-bold hover:bg-slate-800 transition-all flex justify-center items-center gap-2"
+            className="w-full bg-slate-900 text-white py-4 rounded-xl font-bold hover:bg-slate-800 transition-all flex justify-center items-center gap-2 disabled:opacity-70 disabled:cursor-not-allowed shadow-lg hover:shadow-xl hover:-translate-y-1"
           >
             {loading ? <Loader2 className="animate-spin"/> : <><Save size={18}/> Simpan Klien</>}
           </button>

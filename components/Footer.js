@@ -23,16 +23,15 @@ export default function Footer() {
   };
 
   return (
-    <footer className="relative bg-[#0f2e24] text-[#F3E5AB] pt-20 pb-10 overflow-hidden border-t border-[#D4AF37]/30">
+    <footer className="relative bg-dark text-light pt-20 pb-10 overflow-hidden border-t border-accent/30">
       
       {/* BACKGROUND ORNAMEN */}
-      {/* Watermark 'Thank You' Raksasa */}
-      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 text-[12rem] md:text-[20rem] font-script text-[#D4AF37] opacity-[0.03] select-none pointer-events-none whitespace-nowrap z-0">
+      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 text-[12rem] md:text-[20rem] font-script text-accent opacity-[0.03] select-none pointer-events-none whitespace-nowrap z-0">
         Thank You
       </div>
       
       {/* Cahaya Glow di bawah */}
-      <div className="absolute bottom-0 left-1/2 -translate-x-1/2 w-full max-w-3xl h-64 bg-[#D4AF37]/5 rounded-t-full blur-[80px] pointer-events-none"></div>
+      <div className="absolute bottom-0 left-1/2 -translate-x-1/2 w-full max-w-3xl h-64 bg-accent/5 rounded-t-full blur-[80px] pointer-events-none"></div>
 
       <div className="container mx-auto px-6 relative z-10 text-center">
         
@@ -45,7 +44,7 @@ export default function Footer() {
         >
            {/* Ikon Hati Berdenyut */}
            <div className="flex justify-center mb-6">
-              <Heart fill="#D4AF37" className="text-[#D4AF37] animate-pulse" size={24} />
+              <Heart fill="currentColor" className="text-accent animate-pulse" size={24} />
            </div>
 
            {/* Ucapan Penutup */}
@@ -57,7 +56,7 @@ export default function Footer() {
            </p>
 
            {/* Nama Mempelai */}
-           <h2 className="font-script text-5xl md:text-7xl text-[#D4AF37] mb-8 drop-shadow-sm">
+           <h2 className="font-script text-5xl md:text-7xl text-accent mb-8 drop-shadow-sm">
              Romeo & Juliet
            </h2>
 
@@ -70,7 +69,7 @@ export default function Footer() {
         </motion.div>
 
         {/* --- DIVIDER --- */}
-        <div className="w-full h-px bg-gradient-to-r from-transparent via-[#D4AF37]/30 to-transparent mb-8"></div>
+        <div className="w-full h-px bg-gradient-to-r from-transparent via-accent/30 to-transparent mb-8"></div>
 
         {/* --- BOTTOM BAR --- */}
         <div className="flex flex-col md:flex-row items-center justify-between gap-6 text-[10px] uppercase tracking-widest text-slate-500 font-heading">
@@ -80,10 +79,10 @@ export default function Footer() {
              © 2026 Romeo & Juliet Wedding. All Rights Reserved.
            </p>
 
-           {/* Credit Developer (Bisa ganti nama Anda) */}
+           {/* Credit Developer */}
            <p className="flex items-center gap-1">
-             Made with <Heart size={10} fill="currentColor" className="text-red-500" /> by 
-             <span className="text-[#D4AF37] font-bold">Dal Premium</span>
+             Made with <Heart size={10} fill="currentColor" className="text-red-500" /> by
+             <span className="text-accent font-bold">Dal Premium</span>
            </p>
 
         </div>
@@ -96,7 +95,7 @@ export default function Footer() {
         initial={{ scale: 0 }}
         animate={{ scale: 1 }}
         transition={{ delay: 1, type: 'spring' }}
-        className="fixed bottom-6 right-6 z-40 w-12 h-12 bg-[#D4AF37] text-[#1B4D3E] rounded-full shadow-[0_0_20px_rgba(212,175,55,0.4)] flex items-center justify-center hover:bg-white hover:scale-110 transition-all duration-300 group"
+        className="fixed bottom-6 right-6 z-40 w-12 h-12 bg-accent text-primary rounded-full shadow-[0_0_20px_rgba(0,0,0,0.3)] shadow-accent/40 flex items-center justify-center hover:bg-white hover:scale-110 transition-all duration-300 group"
         aria-label="Back to Top"
       >
         <ArrowUp size={20} className="group-hover:-translate-y-1 transition-transform" />

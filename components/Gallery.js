@@ -4,11 +4,10 @@ import { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { X, ZoomIn, Heart } from 'lucide-react';
 
-// --- DATA FOTO (Ganti src dengan foto asli Anda) ---
-// row untuk foto panjang, col untuk foto lebar
+// --- DATA FOTO ---
 const galleryImages = [
   { id: 1, src: '/img/gallery1.jpg', alt: 'Prewedding 1', span: 'md:col-span-1' },
-  { id: 2, src: '/img/gallery2.jpg', alt: 'Prewedding 2', span: 'md:row-span-2' }, // Foto Lebar
+  { id: 2, src: '/img/gallery2.jpg', alt: 'Prewedding 2', span: 'md:row-span-2' },
   { id: 3, src: '/img/gallery3.jpg', alt: 'Prewedding 3', span: 'md:col-span-1' },
   { id: 4, src: '/img/gallery4.jpg', alt: 'Prewedding 4', span: 'md:col-span-1' },
   { id: 5, src: '/img/gallery5.jpg', alt: 'Prewedding 5', span: 'md:col-span-1' },
@@ -18,7 +17,7 @@ const galleryImages = [
 export default function Gallery() {
   const [selectedId, setSelectedId] = useState(null);
 
-  // Animasi Cinematic (Sama seperti section lain)
+  // Animasi Cinematic
   const cinematicVariant = {
     hidden: { opacity: 0, scale: 0.8, filter: "blur(10px)", y: 50 },
     visible: { 
@@ -27,14 +26,13 @@ export default function Gallery() {
     }
   };
 
-  const viewportSettings = { once: false, amount: 0.2 }; // Replay Aktif
+  const viewportSettings = { once: false, amount: 0.2 }; 
 
   return (
-    // Background Krem Terang (#FDFBF7) untuk selang-seling warna
-    <section className="py-24 md:py-32 bg-[#FDFBF7] relative overflow-hidden">
+    <section className="py-24 md:py-32 bg-paper relative overflow-hidden">
       
       {/* BACKGROUND WATERMARK */}
-      <div className="absolute top-10 left-0 text-[10rem] md:text-[20rem] font-script text-[#D4AF37] opacity-[0.03] select-none pointer-events-none z-0 leading-none">
+      <div className="absolute top-10 left-0 text-[10rem] md:text-[20rem] font-script text-accent opacity-[0.03] select-none pointer-events-none z-0 leading-none">
         Moments
       </div>
 
@@ -48,13 +46,13 @@ export default function Gallery() {
           variants={cinematicVariant}
           className="text-center mb-16"
         >
-           <p className="font-heading text-[#D4AF37] tracking-[0.3em] uppercase text-xs md:text-sm mb-3 font-semibold">
+           <p className="font-heading text-accent tracking-[0.3em] uppercase text-xs md:text-sm mb-3 font-semibold">
             Our Happy Moments
           </p>
-          <h2 className="font-script text-5xl md:text-7xl text-[#1B4D3E] mb-6 drop-shadow-sm">
+          <h2 className="font-script text-5xl md:text-7xl text-primary mb-6 drop-shadow-sm">
             Galeri Foto
           </h2>
-          <div className="w-20 h-1 bg-[#D4AF37] mx-auto rounded-full opacity-60"></div>
+          <div className="w-20 h-1 bg-accent mx-auto rounded-full opacity-60"></div>
         </motion.div>
 
         {/* GRID GALLERY */}
@@ -62,13 +60,12 @@ export default function Gallery() {
           {galleryImages.map((img, index) => (
             <motion.div
               key={img.id}
-              layoutId={`card-${img.id}`} // Untuk animasi transisi mulus ke lightbox
+              layoutId={`card-${img.id}`} 
               initial="hidden"
               whileInView="visible"
               viewport={viewportSettings}
               variants={cinematicVariant}
-              // Mengatur span agar ada foto yang lebar (Variasi Layout)
-              className={`relative group overflow-hidden rounded-2xl cursor-pointer border border-[#D4AF37]/20 shadow-lg ${img.span}`}
+              className={`relative group overflow-hidden rounded-2xl cursor-pointer border border-accent/20 shadow-lg ${img.span}`}
               onClick={() => setSelectedId(img.id)}
             >
               {/* Gambar */}
@@ -78,16 +75,16 @@ export default function Gallery() {
                 className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
               />
               
-              {/* Overlay Hover (Efek Gelap + Ikon) */}
+              {/* Overlay Hover */}
               <div className="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
                  <div className="bg-white/20 backdrop-blur-md p-4 rounded-full text-white transform scale-0 group-hover:scale-100 transition-transform duration-300 delay-100">
                     <ZoomIn size={24} />
                  </div>
               </div>
 
-              {/* Sudut Hiasan Emas (Kecil) */}
-              <div className="absolute top-2 right-2 w-3 h-3 border-t-2 border-r-2 border-[#D4AF37] opacity-0 group-hover:opacity-100 transition-all duration-500"></div>
-              <div className="absolute bottom-2 left-2 w-3 h-3 border-b-2 border-l-2 border-[#D4AF37] opacity-0 group-hover:opacity-100 transition-all duration-500"></div>
+              {/* Sudut Hiasan Emas */}
+              <div className="absolute top-2 right-2 w-3 h-3 border-t-2 border-r-2 border-accent opacity-0 group-hover:opacity-100 transition-all duration-500"></div>
+              <div className="absolute bottom-2 left-2 w-3 h-3 border-b-2 border-l-2 border-accent opacity-0 group-hover:opacity-100 transition-all duration-500"></div>
 
             </motion.div>
           ))}
@@ -103,7 +100,7 @@ export default function Gallery() {
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
             className="fixed inset-0 z-50 flex items-center justify-center bg-black/90 backdrop-blur-sm p-4"
-            onClick={() => setSelectedId(null)} // Klik luar untuk tutup
+            onClick={() => setSelectedId(null)} 
           >
              {/* Tombol Close */}
              <button className="absolute top-6 right-6 text-white/70 hover:text-white transition-colors z-50 bg-white/10 p-2 rounded-full backdrop-blur-md">
@@ -112,9 +109,9 @@ export default function Gallery() {
 
              {/* Container Gambar Full */}
              <motion.div 
-               layoutId={`card-${selectedId}`} // Match ID dengan grid agar animasinya nyambung
-               className="relative max-w-4xl w-full max-h-[90vh] rounded-2xl overflow-hidden shadow-2xl border border-[#D4AF37]/30"
-               onClick={(e) => e.stopPropagation()} // Supaya klik gambar tidak menutup modal
+               layoutId={`card-${selectedId}`}
+               className="relative max-w-4xl w-full max-h-[90vh] rounded-2xl overflow-hidden shadow-2xl border border-accent/30"
+               onClick={(e) => e.stopPropagation()} 
              >
                 <img 
                   src={galleryImages.find(img => img.id === selectedId)?.src}
@@ -122,10 +119,10 @@ export default function Gallery() {
                   className="w-full h-full object-contain bg-black"
                 />
                 
-                {/* Caption Bawah (Opsional) */}
+                {/* Caption Bawah */}
                 <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/80 to-transparent p-6 text-center">
-                   <p className="text-[#F3E5AB] font-script text-2xl">
-                      Romeo & Juliet Moments
+                   <p className="text-light font-script text-2xl">
+                     Romeo & Juliet Moments
                    </p>
                 </div>
              </motion.div>

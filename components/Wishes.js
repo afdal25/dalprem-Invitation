@@ -2,7 +2,7 @@
 
 import { useState, useEffect } from 'react';
 import { supabase } from '@/lib/supabase';
-import { CLIENT_SLUG } from '@/lib/config'; // 1. IMPORT SLUG
+import { CLIENT_SLUG } from '@/lib/config'; 
 import { Send, MessageCircle, PenTool, Clock, User, Heart } from 'lucide-react';
 import { motion } from 'framer-motion';
 
@@ -17,7 +17,7 @@ export default function Wishes() {
     const { data, error } = await supabase
       .from('wishes')
       .select('*')
-      .eq('slug', CLIENT_SLUG) // 2. FILTER DATA BERDASARKAN SLUG
+      .eq('slug', CLIENT_SLUG) 
       .order('created_at', { ascending: false })
       .limit(50);
     
@@ -30,13 +30,13 @@ export default function Wishes() {
 
     // --- 2. REALTIME LISTENER ---
     const channel = supabase
-      .channel(`public:wishes:${CLIENT_SLUG}`) // Gunakan nama channel unik
+      .channel(`public:wishes:${CLIENT_SLUG}`) 
       .on('postgres_changes', 
         { 
           event: 'INSERT', 
           schema: 'public', 
           table: 'wishes',
-          filter: `slug=eq.${CLIENT_SLUG}` // 3. FILTER REALTIME BERDASARKAN SLUG
+          filter: `slug=eq.${CLIENT_SLUG}` 
         }, 
         (payload) => {
           setWishes((prev) => {
@@ -63,7 +63,7 @@ export default function Wishes() {
         .from('wishes')
         .insert([
           { 
-              slug: CLIENT_SLUG, // 4. MASUKKAN SLUG SAAT INSERT
+              slug: CLIENT_SLUG, 
               name: form.name, 
               message: form.message 
           }
@@ -74,7 +74,6 @@ export default function Wishes() {
       if (error) throw error;
 
       if (data) {
-        setWishes((prev) => [data, ...prev]);
         setForm({ name: '', message: '' });
       }
 
@@ -107,12 +106,12 @@ export default function Wishes() {
 
   const viewportSettings = { once: false, amount: 0.2 };
 
-  // --- RETURN JSX (TIDAK ADA PERUBAHAN TAMPILAN) ---
+  // --- RETURN JSX ---
   return (
-    <section className="py-24 md:py-32 bg-[#FDFBF7] relative overflow-hidden">
+    <section className="py-24 md:py-32 bg-paper relative overflow-hidden">
       
       {/* Background Watermark */}
-      <div className="absolute top-10 right-0 text-[15rem] font-script text-[#D4AF37] opacity-[0.03] select-none pointer-events-none z-0 leading-none">
+      <div className="absolute top-10 right-0 text-[15rem] font-script text-accent opacity-[0.03] select-none pointer-events-none z-0 leading-none">
         Wishes
       </div>
 
@@ -126,13 +125,13 @@ export default function Wishes() {
           viewport={viewportSettings}
           variants={cinematicVariant}
         >
-          <div className="flex justify-center mb-4 text-[#D4AF37]">
+          <div className="flex justify-center mb-4 text-accent">
              <MessageCircle size={32} />
           </div>
-          <p className="font-heading text-[#D4AF37] tracking-[0.3em] uppercase text-xs md:text-sm mb-3 font-semibold">
+          <p className="font-heading text-accent tracking-[0.3em] uppercase text-xs md:text-sm mb-3 font-semibold">
             Prayers & Wishes
           </p>
-          <h2 className="font-script text-5xl md:text-7xl text-[#1B4D3E] mb-4">
+          <h2 className="font-script text-5xl md:text-7xl text-primary mb-4">
             Doa & Ucapan
           </h2>
           <p className="font-body text-slate-500 max-w-lg mx-auto">
@@ -150,18 +149,18 @@ export default function Wishes() {
             viewport={viewportSettings}
             variants={cinematicVariant}
           >
-            <div className="bg-white p-8 rounded-[2rem] shadow-xl border border-[#D4AF37]/20 relative overflow-hidden">
-               <div className="absolute top-0 right-0 w-20 h-20 bg-[#D4AF37]/10 rounded-bl-[4rem]"></div>
+            <div className="bg-white p-8 rounded-[2rem] shadow-xl border border-accent/20 relative overflow-hidden">
+               <div className="absolute top-0 right-0 w-20 h-20 bg-accent/10 rounded-bl-[4rem]"></div>
 
-               <h3 className="font-heading text-2xl text-[#1B4D3E] mb-6 flex items-center gap-2 font-bold">
-                 <PenTool size={20} className="text-[#D4AF37]"/> Kirim Doa
+               <h3 className="font-heading text-2xl text-primary mb-6 flex items-center gap-2 font-bold">
+                 <PenTool size={20} className="text-accent"/> Kirim Doa
                </h3>
 
                <form onSubmit={handleSubmit} className="space-y-5">
                  <div className="relative">
-                   <User className="absolute left-4 top-4 text-[#D4AF37]" size={18} />
+                   <User className="absolute left-4 top-4 text-accent" size={18} />
                    <input
-                     className="w-full bg-[#FDFBF7] border border-slate-200 p-4 pl-12 rounded-xl focus:outline-none focus:border-[#D4AF37] font-heading text-[#1B4D3E] transition-colors placeholder:text-slate-400 font-bold"
+                     className="w-full bg-paper border border-slate-200 p-4 pl-12 rounded-xl focus:outline-none focus:border-accent font-heading text-primary transition-colors placeholder:text-slate-400 font-bold"
                      placeholder="Nama Anda"
                      value={form.name}
                      onChange={(e) => setForm({...form, name: e.target.value})}
@@ -170,9 +169,9 @@ export default function Wishes() {
                    />
                  </div>
                  <div className="relative">
-                   <MessageCircle className="absolute left-4 top-4 text-[#D4AF37]" size={18} />
+                   <MessageCircle className="absolute left-4 top-4 text-accent" size={18} />
                    <textarea
-                     className="w-full bg-[#FDFBF7] border border-slate-200 p-4 pl-12 rounded-xl focus:outline-none focus:border-[#D4AF37] font-body text-slate-600 h-32 resize-none transition-colors placeholder:text-slate-400"
+                     className="w-full bg-paper border border-slate-200 p-4 pl-12 rounded-xl focus:outline-none focus:border-accent font-body text-slate-600 h-32 resize-none transition-colors placeholder:text-slate-400"
                      placeholder="Tuliskan doa terbaik..."
                      value={form.message}
                      onChange={(e) => setForm({...form, message: e.target.value})}
@@ -183,7 +182,7 @@ export default function Wishes() {
                  <button 
                    type="submit" 
                    disabled={isSubmitting}
-                   className="w-full bg-[#1B4D3E] text-white py-4 rounded-xl font-heading tracking-widest uppercase text-xs font-bold hover:bg-[#153c30] transition-all shadow-lg hover:shadow-[#1B4D3E]/30 flex justify-center items-center gap-2 disabled:opacity-70 disabled:cursor-not-allowed"
+                   className="w-full bg-primary text-white py-4 rounded-xl font-heading tracking-widest uppercase text-xs font-bold hover:brightness-90 transition-all shadow-lg hover:shadow-primary/30 flex justify-center items-center gap-2 disabled:opacity-70 disabled:cursor-not-allowed"
                  >
                    {isSubmitting ? 'Mengirim...' : <><Send size={16}/> Kirim Ucapan</>}
                  </button>
@@ -199,13 +198,13 @@ export default function Wishes() {
             viewport={viewportSettings}
             variants={cinematicVariant}
           >
-            <div className="bg-white/50 backdrop-blur-sm rounded-[2rem] p-4 md:p-6 border border-[#D4AF37]/10 h-[600px] overflow-y-auto custom-scrollbar relative">
+            <div className="bg-white/50 backdrop-blur-sm rounded-[2rem] p-4 md:p-6 border border-accent/10 h-[600px] overflow-y-auto custom-scrollbar relative">
               
               {loading && <p className="text-center py-20 text-slate-400 italic">Memuat doa-doa...</p>}
 
               {!loading && wishes.length === 0 && (
                  <div className="text-center py-20 text-slate-400 flex flex-col items-center">
-                    <Heart size={40} className="mb-4 opacity-20 text-[#D4AF37]"/>
+                    <Heart size={40} className="mb-4 opacity-20 text-accent"/>
                     <p>Belum ada ucapan. Jadilah yang pertama!</p>
                  </div>
               )}
@@ -213,8 +212,8 @@ export default function Wishes() {
               <div className="space-y-5">
                 {wishes.map((wish, index) => (
                   <motion.div 
-                    key={wish.id} 
-                    className="bg-white p-6 rounded-2xl shadow-sm border border-slate-100 relative group hover:shadow-md transition-all hover:border-[#D4AF37]/30"
+                    key={wish.id}
+                    className="bg-white p-6 rounded-2xl shadow-sm border border-slate-100 relative group hover:shadow-md transition-all hover:border-accent/30"
                     initial={{ opacity: 0, y: 20 }}
                     whileInView={{ opacity: 1, y: 0 }}
                     viewport={{ once: true, margin: "50px" }}
@@ -222,12 +221,12 @@ export default function Wishes() {
                   >
                     {/* Header Item */}
                     <div className="flex items-center gap-3 mb-3">
-                      <div className="w-10 h-10 rounded-full bg-[#FDFBF7] border border-[#D4AF37]/20 flex items-center justify-center text-[#1B4D3E] font-bold font-serif shadow-sm shrink-0">
+                      <div className="w-10 h-10 rounded-full bg-paper border border-accent/20 flex items-center justify-center text-primary font-bold font-serif shadow-sm shrink-0">
                         {wish.name ? wish.name.charAt(0).toUpperCase() : '?'}
                       </div>
                       
                       <div className="flex-1">
-                        <h4 className="font-heading text-lg font-bold text-[#1B4D3E] leading-tight">{wish.name}</h4>
+                        <h4 className="font-heading text-lg font-bold text-primary leading-tight">{wish.name}</h4>
                         <div className="flex items-center gap-1 text-[10px] text-slate-400 uppercase tracking-wider font-body mt-0.5">
                           <Clock size={10} />
                           {formatDateTime(wish.created_at)}
@@ -236,7 +235,7 @@ export default function Wishes() {
                     </div>
 
                     {/* Isi Pesan */}
-                    <div className="bg-[#FDFBF7] p-4 rounded-xl rounded-tl-none relative">
+                    <div className="bg-paper p-4 rounded-xl rounded-tl-none relative">
                         <p className="text-slate-600 text-sm font-body leading-relaxed">
                         "{wish.message}"
                         </p>
@@ -254,8 +253,10 @@ export default function Wishes() {
       <style jsx>{`
         .custom-scrollbar::-webkit-scrollbar { width: 6px; }
         .custom-scrollbar::-webkit-scrollbar-track { background: transparent; }
-        .custom-scrollbar::-webkit-scrollbar-thumb { background: #D4AF37; border-radius: 10px; opacity: 0.5; }
-        .custom-scrollbar::-webkit-scrollbar-thumb:hover { background: #b8952b; }
+        /* UBAH: background: accent -> ini harus hardcoded hex atau pakai css variable, tailwind class tdk jalan di sini */
+        /* Solusi: Gunakan rgba warna emas default atau currentcolor jika didukung browser */
+        .custom-scrollbar::-webkit-scrollbar-thumb { background: #b8952b; border-radius: 10px; opacity: 0.5; }
+        .custom-scrollbar::-webkit-scrollbar-thumb:hover { background: #9a7b26; }
       `}</style>
     </section>
   );

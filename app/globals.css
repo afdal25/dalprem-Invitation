@@ -1,4 +1,6 @@
-@import "tailwindcss";
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
 
 /* --- SETTINGAN WAJIB (SCROLL & LAYAR) --- */
 html, body {
@@ -28,8 +30,7 @@ html, body {
   .bg-gold { background-color: var(--gold-primary); }
   .border-gold { border-color: var(--gold-primary); }
   
-  /* Utility Font - INI YANG PENTING */
-  /* Pastikan nama variable sesuai dengan yang ada di layout.js */
+  /* Utility Font */
   
   /* 1. Font Judul (Cormorant) */
   .font-heading { 
@@ -41,7 +42,7 @@ html, body {
     font-family: var(--font-lato), sans-serif; 
   }
   
-  /* 3. FONT SAMBUNG (Great Vibes) - PENYEBAB MASALAH ANDA */
+  /* 3. FONT SAMBUNG (Great Vibes) */
   .font-script { 
     font-family: var(--font-great-vibes), cursive; 
   }
@@ -57,7 +58,7 @@ html, body {
   to { opacity: 1; transform: translateY(0); }
 }
 
-/* Hapus scrollbar (opsional) */
+/* Hapus scrollbar  */
 .no-scrollbar::-webkit-scrollbar {
   display: none;
 }

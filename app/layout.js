@@ -32,19 +32,13 @@ export const metadata = {
   title: 'The Wedding of Romeo & Juliet | Royal Emerald Series',
   description: 'Undangan Pernikahan Digital Romeo & Juliet',
   icons: {
-    icon: '/favicon.ico', // Pastikan Anda punya favicon (opsional)
+    icon: '/favicon.ico', // Logo kecil di tab browser
   },
 };
 
 export default function RootLayout({ children }) {
   return (
     <html lang="id">
-      {/*
-        PERHATIKAN DI SINI:
-        Kita WAJIB menambahkan 'overflow-x-hidden' dan 'w-full'.
-        Ini adalah instruksi ke browser untuk memotong (hide) semua elemen animasi
-        yang "bocor" ke luar layar sebelum mereka masuk.
-      */}
       <body className={`${cormorant.variable} ${lato.variable} ${greatVibes.variable} bg-[#FDFBF7] text-slate-800 overflow-x-hidden w-full antialiased`}>
         <TextureOverlay />
         {children}

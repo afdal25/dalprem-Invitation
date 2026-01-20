@@ -14,9 +14,8 @@ export default function Gift() {
       bank: "BCA",
       number: "1234567890",
       name: "DAL PREMIUM",
-      // Warna Asli BCA (Biru)
+      // Warna BCA
       color: "from-[#005E9F] to-[#003566]",
-      // Link Logo BCA (White Version via CSS Filter nanti)
       logo: "/img/bca.png",
       darkText: false
     },
@@ -25,17 +24,17 @@ export default function Gift() {
       bank: "MANDIRI",
       number: "0987654321",
       name: "DAL PREMIUM",
-      // Warna Mandiri (Biru Tua/Emas)
-      color: "from-[#FFC629] to-[#FF9F0E]", // Background Emas
+      // Warna Mandiri
+      color: "from-[#FFC629] to-[#FF9F0E]", 
       logo: "/img/mandiri.png",
-      darkText: true // Text jadi hitam karena background emas terang
+      darkText: true 
     },
     {
       id: 3,
       bank: "DANA",
       number: "08123456789",
       name: "DAL PREMIUM",
-      // Warna Asli DANA (Biru Langit)
+      // Warna DANA
       color: "from-[#118EEA] to-[#094d82]",
       logo: "/img/dana.png",
       darkText: false
@@ -63,11 +62,11 @@ export default function Gift() {
   const viewportSettings = { once: false, amount: 0.2 };
 
   return (
-    <section className="py-24 md:py-32 bg-[#1B4D3E] text-[#FDFBF7] relative overflow-hidden">
+    <section className="py-24 md:py-32 bg-primary text-paper relative overflow-hidden">
       
       {/* ORNAMEN BACKGROUND */}
       <div className="absolute top-0 left-0 w-full h-full bg-[url('/img/noise.png')] opacity-5 pointer-events-none"></div>
-      <div className="absolute bottom-0 left-1/2 -translate-x-1/2 w-[600px] h-[300px] bg-[#D4AF37]/10 rounded-full blur-[100px] pointer-events-none"></div>
+      <div className="absolute bottom-0 left-1/2 -translate-x-1/2 w-[600px] h-[300px] bg-accent/10 rounded-full blur-[100px] pointer-events-none"></div>
 
       <div className="container mx-auto px-6 relative z-10 max-w-5xl">
         
@@ -79,13 +78,13 @@ export default function Gift() {
           viewport={viewportSettings}
           variants={cinematicVariant}
         >
-          <div className="flex justify-center mb-4 text-[#D4AF37]">
+          <div className="flex justify-center mb-4 text-accent">
              <GiftIcon size={32} />
           </div>
-          <p className="font-heading text-[#D4AF37] tracking-[0.3em] uppercase text-xs md:text-sm mb-3 font-semibold">
+          <p className="font-heading text-accent tracking-[0.3em] uppercase text-xs md:text-sm mb-3 font-semibold">
             Wedding Gift
           </p>
-          <h2 className="font-script text-5xl md:text-7xl text-[#F3E5AB] mb-6">
+          <h2 className="font-script text-5xl md:text-7xl text-light mb-6">
             Amplop Digital
           </h2>
           <p className="font-body text-slate-300 text-sm md:text-base max-w-lg mx-auto leading-relaxed">
@@ -102,18 +101,17 @@ export default function Gift() {
               whileInView="visible"
               viewport={viewportSettings}
               variants={cinematicVariant}
-              // Card Styling
+              // Card Styling - bg gradient tetap hardcoded karena warna bank
               className={`relative overflow-hidden rounded-2xl p-6 border border-white/20 shadow-2xl bg-gradient-to-br ${item.color} group hover:scale-[1.02] transition-transform duration-500`}
             >
               {/* Efek Kilau */}
               <div className="absolute top-0 -right-20 w-40 h-full bg-white/10 skew-x-12 blur-xl group-hover:-translate-x-80 transition-transform duration-1000"></div>
 
               {/* Chip Kartu */}
-              <div className="w-12 h-9 bg-gradient-to-br from-[#E5C56C] to-[#b8952b] rounded-md mb-6 opacity-90 border border-[#F3E5AB]/40 shadow-sm"></div>
+              <div className="w-12 h-9 bg-gradient-to-br from-[#E5C56C] to-[#b8952b] rounded-md mb-6 opacity-90 border border-light/40 shadow-sm"></div>
 
               {/* Logo Bank (Kanan Atas) */}
               <div className="absolute top-6 right-6 w-20 h-10 flex items-start justify-end">
-                  {/* Trik CSS: filter brightness 0 invert 1 membuat logo jadi Putih Solid (kecuali Mandiri yg backgroundnya terang) */}
                   <img 
                     src={item.logo} 
                     alt={item.bank} 
@@ -122,13 +120,13 @@ export default function Gift() {
               </div>
 
               {/* Nomor Rekening */}
-              <p className={`font-mono text-xl md:text-2xl tracking-widest mb-1 drop-shadow-md truncate mt-8 ${item.darkText ? 'text-[#1B4D3E]' : 'text-white'}`}>
+              <p className={`font-mono text-xl md:text-2xl tracking-widest mb-1 drop-shadow-md truncate mt-8 ${item.darkText ? 'text-primary' : 'text-white'}`}>
                 {item.number}
               </p>
 
               {/* Nama & Tombol Copy */}
               <div className="flex justify-between items-end mt-6">
-                 <p className={`text-[10px] uppercase tracking-[0.2em] truncate max-w-[120px] ${item.darkText ? 'text-[#1B4D3E]/70' : 'text-slate-200'}`}>
+                 <p className={`text-[10px] uppercase tracking-[0.2em] truncate max-w-[120px] ${item.darkText ? 'text-primary/70' : 'text-slate-200'}`}>
                     a.n {item.name}
                  </p>
                  
@@ -136,8 +134,8 @@ export default function Gift() {
                    onClick={() => handleCopy(item.number, item.id)}
                    className={`flex items-center gap-2 px-3 py-1.5 rounded-full text-[10px] font-bold transition-all ${
                      item.darkText 
-                        ? 'bg-[#1B4D3E]/10 border border-[#1B4D3E]/20 text-[#1B4D3E] hover:bg-[#1B4D3E] hover:text-white'
-                        : 'bg-white/20 border border-white/40 text-white hover:bg-white hover:text-[#1B4D3E]'
+                        ? 'bg-primary/10 border border-primary/20 text-primary hover:bg-primary hover:text-white'
+                        : 'bg-white/20 border border-white/40 text-white hover:bg-white hover:text-primary'
                    }`}
                  >
                    {copiedIndex === item.id ? (

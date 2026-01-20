@@ -154,8 +154,8 @@ Romeo & Juliet`;
         {/* Header */}
         <div className="flex flex-col md:flex-row justify-between items-center mb-10 gap-4 border-b border-[#D4AF37]/20 pb-6">
           <div>
-             <h1 className="font-heading text-3xl md:text-4xl text-[#1B4D3E] font-bold">Dashboard Pengantin</h1>
-             <p className="text-slate-500 text-sm mt-1 italic font-serif">"Pantau kehadiran tamu dengan mudah"</p>
+              <h1 className="font-heading text-3xl md:text-4xl text-[#1B4D3E] font-bold">Dashboard Pengantin</h1>
+              <p className="text-slate-500 text-sm mt-1 italic font-serif">"Pantau kehadiran tamu dengan mudah"</p>
           </div>
           <button onClick={() => setIsAuthenticated(false)} className="px-6 py-2 text-xs uppercase tracking-widest border border-[#1B4D3E] rounded-full hover:bg-[#1B4D3E] hover:text-white transition-all">
             Keluar

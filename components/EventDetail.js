@@ -66,11 +66,10 @@ export default function EventDetail() {
   const viewportSettings = { once: false, amount: 0.3 };
 
   return (
-    // Background Gelap (#1B4D3E)
-    <section className="py-24 md:py-32 bg-[#1B4D3E] text-[#FDFBF7] relative overflow-hidden">
+    <section className="py-24 md:py-32 bg-dark text-paper relative overflow-hidden">
       
       {/* ORNAMEN BACKGROUND (Cahaya Emas) */}
-      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[500px] h-[500px] bg-[#D4AF37]/20 rounded-full blur-[120px] pointer-events-none"></div>
+      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[500px] h-[500px] bg-accent/20 rounded-full blur-[120px] pointer-events-none"></div>
 
       <div className="container mx-auto px-6 relative z-10 max-w-5xl">
 
@@ -82,10 +81,10 @@ export default function EventDetail() {
           variants={cinematicVariant}
           className="text-center mb-16"
         >
-          <p className="font-heading text-[#D4AF37] tracking-[0.3em] uppercase text-xs md:text-sm mb-4 font-bold">
+          <p className="font-heading text-accent tracking-[0.3em] uppercase text-xs md:text-sm mb-4 font-bold">
             Save The Date
           </p>
-          <h2 className="font-script text-5xl md:text-7xl text-[#F3E5AB] mb-8">
+          <h2 className="font-script text-5xl md:text-7xl text-light mb-8">
             Waktu & Tempat
           </h2>
 
@@ -97,11 +96,11 @@ export default function EventDetail() {
               { label: "Menit", value: timeLeft.minutes },
               { label: "Detik", value: timeLeft.seconds },
             ].map((item, idx) => (
-              <div key={idx} className="bg-white/10 backdrop-blur-md border border-[#D4AF37]/30 rounded-xl p-4 w-20 md:w-24 text-center">
+              <div key={idx} className="bg-white/10 backdrop-blur-md border border-accent/30 rounded-xl p-4 w-20 md:w-24 text-center">
                  <div className="font-heading text-2xl md:text-3xl font-bold text-white mb-1">
                    {item.value}
                  </div>
-                 <div className="text-[10px] uppercase tracking-widest text-[#D4AF37]">
+                 <div className="text-[10px] uppercase tracking-widest text-accent">
                    {item.label}
                  </div>
               </div>
@@ -118,56 +117,60 @@ export default function EventDetail() {
               whileInView="visible"
               viewport={viewportSettings}
               variants={cinematicVariant}
-              // STYLE KARTU: Glassmorphism Gelap + Border Emas
-              className="group relative bg-[#0f2e24]/60 backdrop-blur-md border border-[#D4AF37]/30 rounded-[2rem] p-8 md:p-10 hover:border-[#D4AF37] transition-all duration-500 hover:shadow-[0_0_30px_rgba(212,175,55,0.15)]"
+              className="group relative bg-primary/40 backdrop-blur-md border border-accent/30 rounded-[2rem] p-8 md:p-10 hover:border-accent transition-all duration-500 hover:shadow-lg hover:shadow-accent/15"
             >
               {/* Ornamen Sudut Kartu */}
-              <div className="absolute top-4 left-4 w-8 h-8 border-t border-l border-[#D4AF37]/50 rounded-tl-xl"></div>
-              <div className="absolute bottom-4 right-4 w-8 h-8 border-b border-r border-[#D4AF37]/50 rounded-br-xl"></div>
+              <div className="absolute top-4 left-4 w-8 h-8 border-t border-l border-accent/50 rounded-tl-xl"></div>
+              <div className="absolute bottom-4 right-4 w-8 h-8 border-b border-r border-accent/50 rounded-br-xl"></div>
 
               {/* Header Kartu (Judul) */}
-              <div className="text-center mb-8 border-b border-[#D4AF37]/20 pb-6">
-                 <h3 className="font-script text-4xl md:text-5xl text-[#D4AF37] mb-2 drop-shadow-sm">
+              <div className="text-center mb-8 border-b border-accent/20 pb-6">
+                 <h3 className="font-script text-4xl md:text-5xl text-accent mb-2 drop-shadow-sm">
                    {event.title}
                  </h3>
               </div>
 
               {/* Detail List */}
               <div className="space-y-6 font-body text-slate-200">
-                 
-                 {/* Tanggal */}
-                 <div className="flex items-start gap-4">
-                    <div className="p-2 bg-[#D4AF37]/20 rounded-full text-[#D4AF37]">
-                       <Calendar size={20} />
-                    </div>
-                    <div>
-                       <p className="text-xs uppercase tracking-widest text-[#D4AF37]/80 mb-1">Tanggal</p>
-                       <p className="text-lg font-medium">{event.date}</p>
-                    </div>
-                 </div>
+                  
+                  {/* Tanggal */}
+                  <div className="flex items-start gap-4">
+                     <div className="p-2 bg-accent/20 rounded-full text-accent">
+                        <Calendar size={20} />
+                     </div>
+                     <div>
+                        <p className="text-xs uppercase tracking-widest text-accent/80 mb-1">Tanggal</p>
+                        <p className="text-lg font-medium">{event.date}</p>
+                     </div>
+                  </div>
 
-                 {/* Jam */}
-                 <div className="flex items-start gap-4">
-                    <div className="p-2 bg-[#D4AF37]/20 rounded-full text-[#D4AF37]">
-                       <Clock size={20} />
-                    </div>
-                    <div>
-                       <p className="text-xs uppercase tracking-widest text-[#D4AF37]/80 mb-1">Waktu</p>
-                       <p className="text-lg font-medium">{event.time}</p>
-                    </div>
-                 </div>
+                  {/* Jam */}
+                  <div className="flex items-start gap-4">
+                     <div className="p-2 bg-accent/20 rounded-full text-accent">
+                        <Clock size={20} />
+                     </div>
+                     <div>
+                        <p className="text-xs uppercase tracking-widest text-accent/80 mb-1">Waktu</p>
+                        <p className="text-lg font-medium">{event.time}</p>
+                     </div>
+                  </div>
 
-                 {/* Lokasi */}
-                 <div className="flex items-start gap-4">
-                    <div className="p-2 bg-[#D4AF37]/20 rounded-full text-[#D4AF37]">
-                       <MapPin size={20} />
-                    </div>
-                    <div>
-                       <p className="text-xs uppercase tracking-widest text-[#D4AF37]/80 mb-1">Lokasi</p>
-                       <p className="text-lg font-bold text-white leading-tight mb-1">{event.location}</p>
-                       <p className="text-sm text-slate-400 leading-relaxed">{event.address}</p>
-                    </div>
-                 </div>
+                  {/* Lokasi */}
+                  <div className="flex items-start gap-4">
+                     <div className="p-2 bg-accent/20 rounded-full text-accent">
+                        <MapPin size={20} />
+                     </div>
+                     <div>
+                        <p className="text-xs uppercase tracking-widest text-accent/80 mb-1">Lokasi</p>
+                        <p className="text-lg font-bold text-white leading-tight mb-1">{event.location}</p>
+                        <p className="text-sm text-slate-400 leading-relaxed">{event.address}</p>
+                        
+                        {/* Tombol Map (Opsional) */}
+                        <a href={event.mapLink} target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-1 mt-3 text-xs text-accent hover:text-white transition-colors border-b border-accent/50 pb-0.5">
+                          Lihat Peta <MoveRight size={12} />
+                        </a>
+                     </div>
+                  </div>
 
               </div>
 
