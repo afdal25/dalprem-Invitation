@@ -14,14 +14,14 @@ module.exports = {
   ],
   theme: {
     extend: {
-      // Midnight Sapphire
+      // Sage Green Minimalist
       colors: {
-  primary: '#1e3a8a',   // Biru Navy
-  dark: '#172554',      // Midnight Blue
-  accent: '#94a3b8',    // Silver/Platinum
-  light: '#e2e8f0',     // Putih Kebiruan
-  paper: '#f8fafc',     // Putih Bersih
-  text: '#334155',      // Slate Blue
+  primary: '#577c68',   // Hijau Sage Lembut
+  dark: '#2f4b3a',      // Hijau Hutan Pudar
+  accent: '#a89f91',    // Taupe/Cokelat Abu (Emas Matte)
+  light: '#f0fdf4',     // Putih Mint
+  paper: '#ffffff',     // Putih Polos
+  text: '#4b5563',      // Abu-abu Netral
 },
       fontFamily: {
         heading: ['var(--font-cormorant)', 'serif'], 
